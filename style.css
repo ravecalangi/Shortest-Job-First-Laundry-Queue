@@ -1,0 +1,72 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.glass {
+    backdrop-filter: blur(10px);
+    background: rgba(30, 30, 30, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.queue-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    background-color: #2d2d2d;
+    border-radius: 4px;
+    transition: opacity 0.2s ease;
+    opacity: 0;
+    animation: fadeIn 0.2s forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+input:invalid {
+    border-color: #ef4444;
+}
+
+input:focus {
+    box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.3);
+}
+
+.toast {
+    position: fixed;
+    bottom: 12px;
+    right: 12px;
+    background-color: #14b8a6;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+.input-error {
+    color: #ef4444;
+    font-size: 0.65rem;
+    margin-top: 2px;
+}
+
+.sidebar {
+    transition: transform 0.3s ease;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        z-index: 20;
+    }
+}

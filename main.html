@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laundry Queue</title>
+
+    <!-- Tailwind CSS for styling -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-black flex flex-col min-h-screen">
+
+    <!-- Header bar at the top -->
+    <header class="bg-black text-white p-4 fixed w-full top-0 z-10 border-b border-gray-800">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-lg font-medium">Raven’s Wash N’ Fold</h1> <!-- Shop name -->
+
+            <!-- Sidebar menu toggle button for small screens -->
+            <button id="sidebarToggle" class="text-white md:hidden">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main layout with sidebar and content -->
+    <div class="flex flex-grow mt-14">
+
+        <!-- Sidebar menu -->
+        <aside id="sidebar" class="bg-gray-900 w-56 h-screen fixed md:static md:block hidden p-4">
+            <h2 class="text-sm font-medium text-gray-300 mb-3">Menu</h2>
+            <ul class="text-xs text-gray-400 space-y-2">
+                <li><a href="#" class="flex items-center hover:text-teal-400"><i class="fas fa-tag mr-2 text-teal-400"></i>Pricing</a></li>
+                <li><a href="#" class="flex items-center hover:text-teal-400"><i class="fas fa-question-circle mr-2 text-teal-400"></i>FAQs</a></li>
+                <li><a href="#" class="flex items-center hover:text-teal-400"><i class="fas fa-headset mr-2 text-teal-400"></i>Support</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main content area -->
+        <main class="flex-1 flex justify-center items-center py-8 px-4">
+            <div class="glass p-5 rounded-xl w-full max-w-md">
+                <h1 class="text-xl font-medium text-center text-white mb-1">Shortest Job First Laundry Queue</h1> <!-- Title -->
+                <p class="text-center text-xs text-gray-400 mb-4">Lightest by kg goes first</p>
+
+                <!-- Input for customer name -->
+                <div class="mb-3">
+                    <label for="customerName" class="block text-xs text-gray-300">Name</label>
+                    <input type="text" id="customerName" class="mt-1 p-2 w-full border border-gray-700 bg-gray-800 text-white rounded focus:outline-none focus:border-teal-500 text-sm" placeholder="Enter name">
+                    <p id="nameError" class="input-error hidden">Enter a name</p>
+                </div>
+
+                <!-- Input for laundry weight -->
+                <div class="mb-3">
+                    <label for="laundryWeight" class="block text-xs text-gray-300">Weight (kg)</label>
+                    <input type="number" id="laundryWeight" min="0.1" step="0.1" class="mt-1 p-2 w-full border border-gray-700 bg-gray-800 text-white rounded focus:outline-none focus:border-teal-500 text-sm" placeholder="Enter weight">
+                    <p id="weightError" class="input-error hidden">Weight must be greater than 0</p>
+                </div>
+
+                <!-- Button to add item to queue -->
+                <button id="addButton" class="w-full bg-teal-500 text-white p-2 rounded hover:bg-teal-600 disabled:bg-gray-600 disabled:cursor-not-allowed text-sm flex items-center justify-center transition-all hover:shadow-[0_0_10px_#14b8a6]">
+                    <span id="addButtonText">Add to Queue</span>
+
+                    <!-- Loading spinner shown when processing -->
+                    <svg id="spinner" class="animate-spin h-4 w-4 text-white hidden ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+
+                <!-- Queue list -->
+                <div class="mt-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-sm font-medium text-white">Queue</h2>
+
+                        <!-- Button to clear queue -->
+                        <button id="clearQueue" class="text-xs text-red-400 hover:text-red-500 disabled:text-gray-600">Clear</button>
+                    </div>
+
+                    <!-- Display total weight and time -->
+                    <div class="mb-2 text-xs text-gray-400">
+                        <p>Total: <span id="totalWeight">0</span> kg</p>
+                        <p>Time: <span id="estimatedTime">0</span> min</p>
+                    </div>
+
+                    <!-- Items in the queue will appear here -->
+                    <ul id="queue" class="space-y-2"></ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Area for toast message alerts -->
+    <div id="toast" class="toast"></div>
+
+    <!-- External JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
